@@ -1,0 +1,1 @@
+Numerical base (radix) that determines the valid characters and their interpretation.If this is 0, the base used is determined by the format in the sequence (see strtol for details). Notice that by default this argument is 10, not 0.
