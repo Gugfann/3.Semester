@@ -7,6 +7,11 @@ Bil::Bil()
 {
 }
 
+Bil::Bil(string etRegNr):
+	regNr(etRegNr)
+{
+}
+
 string Bil::getRegNr()
 {
 	return regNr;
@@ -14,6 +19,7 @@ string Bil::getRegNr()
 
 void Bil::kalenderUpdate(Kalender enKalender)
 {
+	kalender = enKalender;
 }
 
 void Bil::transitUpdate()

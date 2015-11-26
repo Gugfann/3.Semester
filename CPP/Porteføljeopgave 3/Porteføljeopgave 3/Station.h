@@ -9,6 +9,7 @@ class Station
 {
 public:
 	Station();
+	Station(string enAdresse);
 	Bil *findBilStation(string etRegNr);
 	void sletBilStation(Bil enBil);
 	void addBil(Bil enBil);

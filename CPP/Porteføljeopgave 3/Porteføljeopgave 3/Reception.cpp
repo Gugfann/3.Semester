@@ -7,6 +7,11 @@ Reception::Reception()
 {
 }
 
+void Reception::opretKunde(string navn, string adresse, int tlf, string mail)
+{
+	kunder.push_back(createKunde(navn, adresse, tlf, mail));
+}
+
 void Reception::makeReservation(string enMail, string etRegNr, int enStartDato, int enSlutDato)
 {
 	Kunde* kundePtr = findKunde(enMail);
@@ -47,7 +52,8 @@ void Reception::bilAfleveret(string etRegNr)
 		if (reservationsPtr != nullptr)
 		{
 			gamleReservationer.push_back(*reservationsPtr);
-			sletReservation(*reservationsPtr);			
+			sletReservation(*reservationsPtr);	
+			reservationsPtr->getBil().makeAvailable();
 		}
 		else
 			cout << "Reservationen findes ikke. You dun goofed" << endl;
@@ -82,17 +88,22 @@ void Reception::modtagBil(string etRegNr)
 
 Kunde Reception::createKunde(string etNavn, string enAdresse, int etTlf, string enMail)
 {
-	Kunde(etNavn, enAdresse, etTlf, enMail);
+	return Kunde(etNavn, enAdresse, etTlf, enMail);
 }
 
 Reservation Reception::createReservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato)
 {
-	Reservation(enBil, enKunde, enStartDato, enSlutDato);
+	return Reservation(enBil, enKunde, enStartDato, enSlutDato);
 }
 
 void Reception::addBil(Bil enBil)
 {
 	inventory.push_back(enBil);
+}
+
+void Reception::addStation(Station enStation)
+{
+	stationer.push_back(enStation);
 }
 
 void Reception::addBilStation(Bil enBil)

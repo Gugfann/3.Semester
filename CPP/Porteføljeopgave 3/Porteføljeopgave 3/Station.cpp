@@ -6,6 +6,11 @@ Station::Station()
 {
 }
 
+Station::Station(string enAdresse):
+	adresse(enAdresse)
+{
+}
+
 Bil* Station::findBilStation(string etRegNr)
 {
 	for (int i = 0; i < biler.size(); i++)
