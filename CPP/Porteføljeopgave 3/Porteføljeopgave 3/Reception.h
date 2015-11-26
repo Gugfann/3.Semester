@@ -10,20 +10,30 @@ public:
 	void makeReservation(string enMail, string etRegNr, int enStartDato, int enSlutDato);
 	void hentBil(string enMail);
 	void bilAfleveret(string etRegNr);
+	void flytBil(string etRegNr);
+	void modtagBil(string etRegNr);
 
+protected:
 	Kunde createKunde(string navn, string adresse, int tlf, string mail);
 	Reservation createReservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato);
+	void addBil(Bil enBil);
+	void addBilStation(Bil enBil);
 	void addKunde(Kunde enKunde);
 	void addReservation(Reservation enReservation);
+	void sletReservation(Reservation enReservation);
 	Kunde *findKunde(string enMail);
-	Bil* findBil(string etRegNr);
+	Bil* findBilStation(string etRegNr);
+	Bil* findBilFirma(string etRegNr);
+	void sletBilFirma(Bil enBil);
 	Reservation* findReservation(Kunde enKunde);
-
+	Reservation* findReservation(Bil enBil);
 	~Reception();
-protected:
+
 	vector<Station> stationer;
 	vector<Kunde> kunder;
-	vector<Reservation> reservationer;
+	vector<Reservation> reservationer; 
+	vector<Reservation> gamleReservationer;
+	vector<Bil> inventory;
 	int currentStation = 0;
 };
 

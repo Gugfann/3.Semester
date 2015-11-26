@@ -6,7 +6,7 @@ Station::Station()
 {
 }
 
-Bil* Station::findBil(string etRegNr)
+Bil* Station::findBilStation(string etRegNr)
 {
 	for (int i = 0; i < biler.size(); i++)
 	{
@@ -14,6 +14,23 @@ Bil* Station::findBil(string etRegNr)
 			return &biler[i];
 	}
 	return nullptr;
+}
+
+void Station::sletBilStation(Bil enBil)
+{
+	for (int i = 0; i < biler.size(); i++)
+	{
+		if (enBil.getRegNr() == biler[i].getRegNr())
+		{
+			biler.erase(biler.begin() + i);
+			break;
+		}
+	}
+}
+
+void Station::addBil(Bil enBil)
+{
+	biler.push_back(enBil);
 }
 
 Station::~Station()
