@@ -15,6 +15,29 @@ plot(f,abs(X));
    
 xlim([0,Fnyquist])
 
+%% Highpass Filter (Butterworth)
+
+Fpass = 1085;
+Fstop = 1060;
+
+wPass = Fpass/Fnyquist;
+wStop = Fstop/Fnyquist;
+
+[n, Wn] = buttord(wPass,wStop,3,50);
+
+[z,p,k] = butter(n,Wn,'high');
+sos = zp2sos(z,p,k);
+
+hfvt = fvtool(sos);
+legend(hfvt,'ZPK Design')
+
+%freqz(sos,3000,44100);
+
+dataOut = sosfilt(sos,dataIn);
+
+soundsc(dataOut,Fs)
+
+
 %% Bandpass Filter (Butterworth)
 Fcenter = 1093; 
 dPass = 12;

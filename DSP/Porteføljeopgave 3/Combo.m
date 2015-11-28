@@ -1,0 +1,64 @@
+clear;
+
+dataIn = audioread('morse.wav');
+Fs = 44100;
+Fnyquist = Fs/2;
+
+Fc = 1100;
+
+N = 5251;
+
+n = 0:1:(N-1);
+M = (N-1)/2;
+
+omegaC = 2*pi*Fc/Fs;
+%%
+
+himp = sin(omegaC*(n-M))./((n-M)*pi);
+himp(M+1) = omegaC / pi;
+
+hilp = (omegaC/pi*sinc((n-M)*omegaC/pi));
+
+%figure(1)
+%stem(n,hilp);
+freqz(hilp)
+
+%fvtool(himp)
+
+%%
+test=conv(dataIn,himp);
+
+N1 = length(test);
+dF = Fs/N1;                      % hertz
+f = -Fs/2:dF:Fs/2-dF;           % hertz
+X = abs(fftshift(fft(test)));
+   
+plot(f,abs(X));
+   
+xlim([0,Fnyquist])
+
+soundsc(test,Fs)
+
+%plot(test)
+
+%% Combo
+
+Fpass = 1085;
+Fstop = 1060;
+
+wPass = Fpass/Fnyquist;
+wStop = Fstop/Fnyquist;
+
+[n, Wn] = buttord(wPass,wStop,3,50);
+
+[z,p,k] = butter(n,Wn,'high');
+sos = zp2sos(z,p,k);
+
+hfvt = fvtool(sos);
+legend(hfvt,'ZPK Design')
+
+%freqz(sos,3000,44100);
+
+dataOut = sosfilt(sos,test);
+
+soundsc(dataOut,Fs)
