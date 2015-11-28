@@ -35,7 +35,7 @@ legend(hfvt,'ZPK Design')
 
 dataOut = sosfilt(sos,dataIn);
 
-soundsc(dataOut,Fs)
+%soundsc(dataOut,Fs)
 
 
 %% Bandpass Filter (Butterworth)
@@ -60,7 +60,7 @@ legend(hfvt,'ZPK Design')
 
 dataOut = sosfilt(sos,dataIn);
 
-soundsc(dataOut,Fs)
+%soundsc(dataOut,Fs)
 
 %% Before/After plots of filtering in both time- and frequency domain
 

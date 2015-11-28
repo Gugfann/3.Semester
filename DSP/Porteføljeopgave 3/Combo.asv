@@ -6,7 +6,7 @@ Fnyquist = Fs/2;
 
 Fc = 1100;
 
-N = 8001;
+N = 5001;
 
 n = 0:1:(N-1);
 M = (N-1)/2;
@@ -34,11 +34,11 @@ f = -Fs/2:dF:Fs/2-dF;           % hertz
 X = abs(fftshift(fft(test)));
 
 figure(2)
-plot(f,mag2db(X));
+plot(f,mag2db(abs(X))
    
 xlim([0,Fnyquist])
 
-%soundsc(test,Fs)
+soundsc(test,Fs)
 
 %plot(test)
 
@@ -63,15 +63,3 @@ legend(hfvt,'ZPK Design')
 dataOut = sosfilt(sos,test);
 
 soundsc(dataOut,Fs)
-
-%%
-
-N2 = length(dataOut);
-dF = Fs/N2;                      % hertz
-f = -Fs/2:dF:Fs/2-dF;           % hertz
-X = abs(fftshift(fft(dataOut)));
-
-figure(2)
-plot(f,mag2db(X));
-   
-xlim([0,Fnyquist])
