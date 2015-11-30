@@ -19,7 +19,7 @@ himp(M+1) = omegaC / pi;
 
 hilp = (omegaC/pi*sinc((n-M)*omegaC/pi));
 
-%figure(1)
+figure(1)
 %stem(n,hilp);
 freqz(himp)
 
@@ -28,13 +28,17 @@ freqz(himp)
 %%
 test=conv(dataIn,himp);
 
-N1 = length(test);
+N1 = length(dataIn);
 dF = Fs/N1;                      % hertz
-f = -Fs/2:dF:Fs/2-dF;           % hertz
+f1 = -Fs/2:dF:Fs/2-dF;           % hertz
+
+N2 = length(test);
+dF = Fs/N2;                      % hertz
+f2 = -Fs/2:dF:Fs/2-dF;           % hertz
 X = abs(fftshift(fft(test)));
 
 figure(2)
-plot(f,mag2db(X));
+plot(f2,X);
    
 xlim([0,Fnyquist])
 
@@ -62,16 +66,55 @@ legend(hfvt,'ZPK Design')
 
 dataOut = sosfilt(sos,test);
 
-soundsc(dataOut,Fs)
+%soundsc(dataOut,Fs)
 
-%%
+%% Frequency spectrum after filtering
 
-N2 = length(dataOut);
-dF = Fs/N2;                      % hertz
-f = -Fs/2:dF:Fs/2-dF;           % hertz
+N3 = length(dataOut);
+dF = Fs/N3;                      % hertz
+f3 = -Fs/2:dF:Fs/2-dF;           % hertz
 X = abs(fftshift(fft(dataOut)));
 
-figure(2)
-plot(f,mag2db(X));
+figure(3)
+plot(f3,mag2db(X));
    
+xlim([0,Fnyquist])
+
+%% Before/After plots of filtering in both time- and frequency domain
+
+Xin = fftshift(fft(dataIn));
+Xtest = fftshift(fft(test));
+Xout = fftshift(fft(dataOut));
+
+figure(4)
+
+subplot(3,1,1)
+plot(dataIn)
+xlabel('Before')
+title('Time domain')
+
+subplot(3,1,2)
+plot(test)
+xlabel('1st Filter')
+
+subplot(3,1,3)
+plot(dataOut)
+xlabel('After')
+
+%%
+figure(5)
+subplot(3,1,1)
+plot(f1,mag2db(abs(Xin)))
+xlabel('Before')
+title('Frequency domain')
+xlim([0,Fnyquist])
+
+subplot(3,1,2)
+plot(f2,mag2db(abs(Xtest)))
+xlabel('1st Filter')
+xlim([0,Fnyquist])
+
+subplot(3,1,3)
+plot(f3,mag2db(abs(Xout)))
+xlabel('After')
 xlim([0,Fnyquist])
