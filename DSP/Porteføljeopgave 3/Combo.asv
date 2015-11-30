@@ -8,7 +8,7 @@ Fnyquist = Fs/2;
 
 Fc = 1100;
 
-N = 201;
+N = 101;
 
 n = 0:1:(N-1);
 M = (N-1)/2;
@@ -19,9 +19,9 @@ omegaC = 2*pi*Fc/Fs;
 himp = sin(omegaC*(n-M))./((n-M)*pi);
 himp(M+1) = omegaC / pi;
 
-
+% Hanning window
 hanning = 0.5 + 0.5*cos(pi*(n-M)/M);
-% beregn filter-koefficienter med bartlett vinduesfunktion
+
 hwindow = himp.*hanning;
 
 figure(1)
@@ -46,28 +46,49 @@ plot(f2,X);
   
 xlim([0,Fnyquist])
 
-%soundsc(test,Fs)
+soundsc(test,Fs)
 
 %plot(test)
 
 %% Combo
 
-Fpass = 1085;
-Fstop = 1060;
+Fpass = 1050;
+Fstop = 900;
 
-wdPass = 2*pi*Fpass;
-wdStop = 2*pi*Fstop;
+%wPass = Fpass/Fnyquist;
+%wStop = Fstop/Fnyquist;
 
-wPass = Fpass/Fnyquist;
-wStop = Fstop/Fnyquist;
+%% matlab crap galore
+wdPass = 2*pi*Fpass/Fnyquist;
+wdStop = 2*pi*Fstop/Fnyquist;
+
+waPass = (2/T)*tan(wdPass*T/2)
+waStop = (2/T)*tan(wdStop*T/2)
+
+% vs for highpass filter
+vs = waPass/waStop; 
+n = ceil(log10((power(10,0.1*50)-1)/1)/(2*log10(vs)));
+
+[Bs_norm, As_norm] = butter(n, 1,'s');
+
+[Bs1,As1] = lp2hp(Bs_norm, As_norm,waPass);
+figure(1)
+bode(Bs1,As1)
+
+[Bz,Az] = bilinear(Bs1,As1,Fs);
+
+%[n, Wn] = buttord(wPass,wStop,3,50);
+
+%[z,p,k] = butter(n,Wn,'high');
+%sos = zp2sos(z,p,k);
+freqz(Bz,Az,Fs)
+%fvtool(sos)
 
 [n, Wn] = buttord(wPass,wStop,3,50);
 
 [z,p,k] = butter(n,Wn,'high');
-sos = zp2sos(z,p,k);
-
 dataOut = sosfilt(sos,test);
-soundsc(dataOut,Fs)
+%soundsc(dataOut,Fs)
 
 %audiowrite('filter.wav',dataOut,Fs)
 

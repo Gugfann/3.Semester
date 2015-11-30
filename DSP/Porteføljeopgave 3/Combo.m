@@ -8,7 +8,7 @@ Fnyquist = Fs/2;
 
 Fc = 1100;
 
-N = 101;
+N = 201;
 
 n = 0:1:(N-1);
 M = (N-1)/2;
@@ -52,11 +52,8 @@ xlim([0,Fnyquist])
 
 %% Combo
 
-Fpass = 1085;
-Fstop = 1060;
-
-wdPass = 2*pi*Fpass;
-wdStop = 2*pi*Fstop;
+Fpass = 1080;
+Fstop = 1000;
 
 wPass = Fpass/Fnyquist;
 wStop = Fstop/Fnyquist;
@@ -65,11 +62,34 @@ wStop = Fstop/Fnyquist;
 
 [z,p,k] = butter(n,Wn,'high');
 sos = zp2sos(z,p,k);
-
 dataOut = sosfilt(sos,test);
 soundsc(dataOut,Fs)
 
 %audiowrite('filter.wav',dataOut,Fs)
+
+%% matlab crap galore
+wdPass = 2*pi*Fpass/Fnyquist;
+wdStop = 2*pi*Fstop/Fnyquist;
+
+waPass = (2/T)*tan(wdPass*T/2)
+waStop = (2/T)*tan(wdStop*T/2)
+
+% vs for highpass filter
+vs = waPass/waStop; 
+n = ceil(log10((power(10,0.1*50)-1)/1)/(2*log10(vs)));
+
+[Bs_norm, As_norm] = butter(n, 1,'s');
+
+[Bs1,As1] = lp2hp(Bs_norm, As_norm,waPass);
+figure(1)
+bode(Bs1,As1)
+
+[Bz,Az] = bilinear(Bs1,As1,Fs);
+
+
+freqz(Bz,Az,Fs)
+%fvtool(sos)
+
 
 %% Frequency spectrum after filtering
 
