@@ -8,7 +8,7 @@ Fnyquist = Fs/2;
 
 Fc = 1100;
 
-N = 101;
+N = 201;
 
 n = 0:1:(N-1);
 M = (N-1)/2;
@@ -19,9 +19,9 @@ omegaC = 2*pi*Fc/Fs;
 himp = sin(omegaC*(n-M))./((n-M)*pi);
 himp(M+1) = omegaC / pi;
 
-% Hanning window
-hanning = 0.5 + 0.5*cos(pi*(n-M)/M);
 
+hanning = 0.5 + 0.5*cos(pi*(n-M)/M);
+% beregn filter-koefficienter med bartlett vinduesfunktion
 hwindow = himp.*hanning;
 
 figure(1)
