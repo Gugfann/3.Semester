@@ -12,6 +12,8 @@ public:
 	Bil(string etRegNr);
 
 	string getRegNr();
+	Kalender getKalender();
+	bool isLedig();
 	void kalenderUpdate(Kalender enKalender);
 	void transitUpdate();
 	void makeAvailable();
@@ -22,5 +24,6 @@ protected:
 	string regNr;
 	string status;
 	Kalender kalender;
+	bool ledig;
 };
 

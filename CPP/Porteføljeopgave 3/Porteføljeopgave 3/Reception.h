@@ -16,8 +16,13 @@ public:
 	void addBil(Bil enBil);
 	void addStation(Station enStation);
 
+	Reservation* findGammelReservation(Kunde enKunde);
+
+	Reservation* findReservation(Kunde enKunde);
+	Reservation* findReservation(Bil enBil);
+
 	~Reception();
-protected:
+
 	Kunde createKunde(string navn, string adresse, int tlf, string mail);
 	Reservation createReservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato);
 	void addBilStation(Bil enBil);
@@ -28,9 +33,8 @@ protected:
 	Bil* findBilStation(string etRegNr);
 	Bil* findBilFirma(string etRegNr);
 	void sletBilFirma(Bil enBil);
-	Reservation* findReservation(Kunde enKunde);
-	Reservation* findReservation(Bil enBil);
 
+protected:
 
 	vector<Station> stationer;
 	vector<Kunde> kunder;

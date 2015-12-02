@@ -1,5 +1,5 @@
 #include "Reception.h"
-
+#include "Dato.h"
 
 
 int main()
@@ -32,11 +32,15 @@ int main()
 	lobby.modtagBil("Flagskibet");
 	lobby.modtagBil("Den flyvende hollænder");
 
-	lobby.makeReservation("lumskpanda@jubii.dk", "Flagskibet", 1234,0510);
+	lobby.makeReservation("lumskpanda@jubii.dk", "Flagskibet", 19870905, 19871001);
 
 	lobby.hentBil("lumskpanda@jubii.dk");
 
 	lobby.bilAfleveret("Flagskibet");
+
+	lobby.findGammelReservation(*lobby.findKunde("lumskpanda@jubii.dk"))->getKalender().printTakenDates();
+	lobby.findGammelReservation(*lobby.findKunde("lumskpanda@jubii.dk"))->getBil().getKalender().printTakenDates();
+
 
 
 	return 0;

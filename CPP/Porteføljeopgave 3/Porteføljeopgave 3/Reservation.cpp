@@ -10,7 +10,7 @@ Reservation::Reservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDa
 	bil(enBil), kunde(enKunde)
 {
 	kalender = createKalender(enStartDato, enSlutDato);
-	enBil.kalenderUpdate(kalender);
+	bil.kalenderUpdate(kalender);
 }
 
 Kunde Reservation::getKunde()

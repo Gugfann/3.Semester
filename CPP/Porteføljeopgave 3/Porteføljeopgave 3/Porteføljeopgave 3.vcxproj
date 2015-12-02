@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bil.cpp" />
+    <ClCompile Include="Dato.cpp" />
     <ClCompile Include="Kalender.cpp" />
     <ClCompile Include="Kunde.cpp" />
     <ClCompile Include="Payment.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bil.h" />
+    <ClInclude Include="Dato.h" />
     <ClInclude Include="Kalender.h" />
     <ClInclude Include="Kunde.h" />
     <ClInclude Include="Payment.h" />

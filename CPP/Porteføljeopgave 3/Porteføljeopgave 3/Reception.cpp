@@ -20,7 +20,10 @@ void Reception::makeReservation(string enMail, string etRegNr, int enStartDato, 
 	if (kundePtr != nullptr && bilPtr != nullptr)
 	{
 		Reservation nyReservation = createReservation(*bilPtr, *kundePtr, enStartDato, enSlutDato);
-		addReservation(nyReservation);
+		if (nyReservation.getKalender().isValid() && nyReservation.getBil().isLedig())
+			addReservation(nyReservation);
+		else
+			cout << "Reservation ikke gyldig!" << endl;
 	}
 	else
 		cout << "You dun goofed!" << endl;
@@ -52,8 +55,8 @@ void Reception::bilAfleveret(string etRegNr)
 		if (reservationsPtr != nullptr)
 		{
 			gamleReservationer.push_back(*reservationsPtr);
+			bilPtr->makeAvailable();
 			sletReservation(*reservationsPtr);	
-			reservationsPtr->getBil().makeAvailable();
 		}
 		else
 			cout << "Reservationen findes ikke. You dun goofed" << endl;
@@ -104,6 +107,16 @@ void Reception::addBil(Bil enBil)
 void Reception::addStation(Station enStation)
 {
 	stationer.push_back(enStation);
+}
+
+Reservation* Reception::findGammelReservation(Kunde enKunde)
+{
+	for (int i = 0; i < gamleReservationer.size(); i++)
+	{
+		if (gamleReservationer[i].getKunde().getMail() == enKunde.getMail())
+			return &gamleReservationer[i];
+	}
+	return nullptr;
 }
 
 void Reception::addBilStation(Bil enBil)
