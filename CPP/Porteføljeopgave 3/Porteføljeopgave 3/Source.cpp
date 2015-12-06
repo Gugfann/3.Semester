@@ -33,15 +33,20 @@ int main()
 	lobby.modtagBil("Den flyvende hollænder");
 
 	lobby.makeReservation("lumskpanda@jubii.dk", "Flagskibet", 19870905, 19871001);
+	lobby.makeReservation("olmkrage@gmail.com", "Flagskibet", 20010513, 20010602);
+	lobby.makeReservation("frelsthævner@arto.dk", "Flagskibet", 20010603, 20010608);
+	lobby.makeReservation("djævelskgnu@hotmail.com", "Flagskibet", 20010814, 20010908);
+	lobby.makeReservation("olmkrage@gmail.com", "Flagskibet", 20020217, 20020602);
 
 	lobby.hentBil("lumskpanda@jubii.dk");
-
 	lobby.bilAfleveret("Flagskibet");
 
-	lobby.findGammelReservation(*lobby.findKunde("lumskpanda@jubii.dk"))->getKalender().printTakenDates();
-	lobby.findGammelReservation(*lobby.findKunde("lumskpanda@jubii.dk"))->getBil().getKalender().printTakenDates();
+	lobby.hentBil("olmkrage@gmail.com");
+	lobby.bilAfleveret("Flagskibet");
 
+	lobby.hentBil("frelsthævner@arto.dk");
 
+	lobby.getStationer()[0].findBilStation("Flagskibet")->getKalender().printTakenDates();
 
 	return 0;
 }

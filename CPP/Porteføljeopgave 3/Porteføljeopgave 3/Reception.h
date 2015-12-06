@@ -13,28 +13,30 @@ public:
 	void bilAfleveret(string etRegNr);
 	void flytBil(string etRegNr);
 	void modtagBil(string etRegNr);
-	void addBil(Bil enBil);
-	void addStation(Station enStation);
+
+	void addBil(Bil& enBil);
+	void addStation(Station& enStation);
 
 	Reservation* findGammelReservation(Kunde enKunde);
-
 	Reservation* findReservation(Kunde enKunde);
 	Reservation* findReservation(Bil enBil);
+	vector<Bil> getInventory();
+	vector<Station> getStationer();
 
 	~Reception();
 
+protected:
 	Kunde createKunde(string navn, string adresse, int tlf, string mail);
-	Reservation createReservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato);
-	void addBilStation(Bil enBil);
-	void addKunde(Kunde enKunde);
-	void addReservation(Reservation enReservation);
-	void sletReservation(Reservation enReservation);
+	Reservation createReservation(Bil* enBil, Kunde* enKunde, int enStartDato, int enSlutDato);
+	void addBilStation(Bil& enBil);
+	void addKunde(Kunde& enKunde);
+	void addReservation(Reservation& enReservation);
+	void sletReservation(Reservation& enReservation);
 	Kunde *findKunde(string enMail);
 	Bil* findBilStation(string etRegNr);
 	Bil* findBilFirma(string etRegNr);
 	void sletBilFirma(Bil enBil);
 
-protected:
 
 	vector<Station> stationer;
 	vector<Kunde> kunder;

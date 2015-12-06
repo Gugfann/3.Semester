@@ -6,16 +6,16 @@ Reservation::Reservation()
 {
 }
 
-Reservation::Reservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato):
+Reservation::Reservation(Bil* enBil, Kunde* enKunde, int enStartDato, int enSlutDato):
 	bil(enBil), kunde(enKunde)
 {
 	kalender = createKalender(enStartDato, enSlutDato);
-	bil.kalenderUpdate(kalender);
+	bil->kalenderUpdate(kalender);
 }
 
 Kunde Reservation::getKunde()
 {
-	return kunde;
+	return *kunde;
 }
 
 Kalender Reservation::getKalender()
@@ -25,12 +25,12 @@ Kalender Reservation::getKalender()
 
 Bil Reservation::getBil()
 {
-	return bil;
+	return *bil;
 }
 
 void Reservation::bilAfhentet()
 {
-	bil.makeUnavailable();
+	bil->makeUnavailable();
 }
 
 

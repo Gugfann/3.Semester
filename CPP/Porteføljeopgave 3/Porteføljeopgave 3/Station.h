@@ -12,7 +12,8 @@ public:
 	Station(string enAdresse);
 	Bil *findBilStation(string etRegNr);
 	void sletBilStation(Bil enBil);
-	void addBil(Bil enBil);
+	void addBil(Bil& enBil);
+	vector<Bil> getBiler();
 	~Station();
 protected:
 	string adresse;

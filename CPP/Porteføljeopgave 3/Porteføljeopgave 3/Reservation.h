@@ -7,7 +7,7 @@ class Reservation
 {
 public:
 	Reservation();
-	Reservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato);
+	Reservation(Bil* enBil, Kunde* enKunde, int enStartDato, int enSlutDato);
 
 	Kunde getKunde();
 	Kalender getKalender();
@@ -18,8 +18,8 @@ public:
 	Kalender createKalender(int enStartDato, int enSlutDato);
 	~Reservation();
 protected:
-	Bil bil;
-	Kunde kunde;
+	Bil* bil;
+	Kunde* kunde;
 	Kalender kalender;
 };
 

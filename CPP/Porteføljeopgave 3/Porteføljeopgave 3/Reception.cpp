@@ -19,7 +19,7 @@ void Reception::makeReservation(string enMail, string etRegNr, int enStartDato, 
 
 	if (kundePtr != nullptr && bilPtr != nullptr)
 	{
-		Reservation nyReservation = createReservation(*bilPtr, *kundePtr, enStartDato, enSlutDato);
+		Reservation nyReservation = createReservation(bilPtr, kundePtr, enStartDato, enSlutDato);
 		if (nyReservation.getKalender().isValid() && nyReservation.getBil().isLedig())
 			addReservation(nyReservation);
 		else
@@ -94,17 +94,17 @@ Kunde Reception::createKunde(string etNavn, string enAdresse, int etTlf, string 
 	return Kunde(etNavn, enAdresse, etTlf, enMail);
 }
 
-Reservation Reception::createReservation(Bil enBil, Kunde enKunde, int enStartDato, int enSlutDato)
+Reservation Reception::createReservation(Bil* enBil, Kunde* enKunde, int enStartDato, int enSlutDato)
 {
 	return Reservation(enBil, enKunde, enStartDato, enSlutDato);
 }
 
-void Reception::addBil(Bil enBil)
+void Reception::addBil(Bil& enBil)
 {
 	inventory.push_back(enBil);
 }
 
-void Reception::addStation(Station enStation)
+void Reception::addStation(Station& enStation)
 {
 	stationer.push_back(enStation);
 }
@@ -119,22 +119,22 @@ Reservation* Reception::findGammelReservation(Kunde enKunde)
 	return nullptr;
 }
 
-void Reception::addBilStation(Bil enBil)
+void Reception::addBilStation(Bil& enBil)
 {
 	stationer[currentStation].addBil(enBil);
 }
 
-void Reception::addKunde(Kunde enKunde)
+void Reception::addKunde(Kunde& enKunde)
 {
 	kunder.push_back(enKunde);
 }
 
-void Reception::addReservation(Reservation enReservation)
+void Reception::addReservation(Reservation& enReservation)
 {
 	reservationer.push_back(enReservation);
 }
 
-void Reception::sletReservation(Reservation enReservation)
+void Reception::sletReservation(Reservation& enReservation)
 {
 	for (int i = 0; i < reservationer.size(); i++)
 	{
@@ -182,6 +182,16 @@ void Reception::sletBilFirma(Bil enBil)
 			break;
 		}
 	}
+}
+
+vector<Bil> Reception::getInventory()
+{
+	return inventory;
+}
+
+vector<Station> Reception::getStationer()
+{
+	return stationer;
 }
 
 Reservation* Reception::findReservation(Kunde enKunde)

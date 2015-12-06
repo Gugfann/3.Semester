@@ -33,9 +33,14 @@ void Station::sletBilStation(Bil enBil)
 	}
 }
 
-void Station::addBil(Bil enBil)
+void Station::addBil(Bil& enBil)
 {
 	biler.push_back(enBil);
+}
+
+vector<Bil> Station::getBiler()
+{
+	return biler;
 }
 
 Station::~Station()
