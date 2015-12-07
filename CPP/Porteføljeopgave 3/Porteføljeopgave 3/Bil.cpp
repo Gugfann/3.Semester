@@ -10,8 +10,8 @@ Bil::Bil()
 Bil::Bil(string etRegNr):
 	regNr(etRegNr)
 {
-	Kalender temp(19000101, 19000105);
-	kalender.mergeKalender(temp);
+	//Kalender temp(19000101, 19000105);
+	//kalender.mergeKalender(temp);
 }
 
 string Bil::getRegNr()

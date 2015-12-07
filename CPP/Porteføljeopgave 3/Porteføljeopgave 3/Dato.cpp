@@ -150,6 +150,11 @@ void Dato::setDato(int enDato)
 	datoen = enDato;
 }
 
+void Dato::printDato()
+{
+	cout << getDag() << "/" << getMaaned() << " " << getAar();
+}
+
 int Dato::gauss(int aar)
 {
 	return (1 + (aar - 1) % 4 + 4 * (aar - 1) % 100 + 6 * (aar - 1) % 400) % 7;

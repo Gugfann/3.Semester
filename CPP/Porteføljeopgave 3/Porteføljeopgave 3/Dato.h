@@ -18,6 +18,7 @@ public:
 
 	int getDato();
 	void setDato(int enDato);
+	void printDato();
 
 	int gauss(int aar);
 

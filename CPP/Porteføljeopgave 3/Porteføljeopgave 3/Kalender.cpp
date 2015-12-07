@@ -98,7 +98,9 @@ void Kalender::printTakenDates()
 {
 	for (int i = 0; i < reservedDates.size(); i++)
 	{
-		cout << i + 1 << ". " << reservedDates[i].getDag() << "/" << reservedDates[i].getMaaned() << " " << reservedDates[i].getAar() << endl;
+		cout << i + 1 << ". ";
+		reservedDates[i].printDato();
+		cout << endl;
 	}
 }
 

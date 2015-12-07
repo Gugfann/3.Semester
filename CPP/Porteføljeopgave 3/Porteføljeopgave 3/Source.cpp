@@ -48,5 +48,9 @@ int main()
 
 	lobby.getStationer()[0].findBilStation("Flagskibet")->getKalender().printTakenDates();
 
+	lobby.makeReservation("lumskpanda@jubii.dk","Flagskibet",20010528,20010604);
+
+	lobby.makeReservation("djævelskgnu@hotmail.com", "Smadrekassen", 20010814, 20010908);
+
 	return 0;
 }

@@ -21,7 +21,17 @@ void Reception::makeReservation(string enMail, string etRegNr, int enStartDato, 
 	{
 		Reservation nyReservation = createReservation(bilPtr, kundePtr, enStartDato, enSlutDato);
 		if (nyReservation.getKalender().isValid() && nyReservation.getBil().isLedig())
+		{
 			addReservation(nyReservation);
+			cout << endl << "Reservation godkendt" << endl;
+			vector<Dato> datoer = nyReservation.getKalender().getDates();
+
+			cout << nyReservation.getBil().getRegNr() << " er reserveret fra d. ";
+			datoer[0].printDato();
+			cout << " til d. ";
+			datoer[datoer.size()-1].printDato();
+			cout << endl << endl;
+		}
 		else
 			cout << "Reservation ikke gyldig!" << endl;
 	}
@@ -83,8 +93,8 @@ void Reception::modtagBil(string etRegNr)
 
 	if (bilPtr != nullptr)
 	{
-		sletBilFirma(*bilPtr);
 		addBilStation(*bilPtr);
+		sletBilFirma(*bilPtr);
 		bilPtr->makeAvailable();
 	}
 }
