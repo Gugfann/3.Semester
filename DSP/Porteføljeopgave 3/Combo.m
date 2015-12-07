@@ -26,8 +26,10 @@ hwindow = himp.*hanning;
 
 figure(1)
 freqz(himp)
+title('Intet vindue')
 figure(2)
 freqz(hwindow)
+title('Hanning vindue')
 
 %%
 test=conv(dataIn,hwindow);
@@ -43,7 +45,10 @@ X = abs(fftshift(fft(test)));
 
 figure(2)
 plot(f2,X);
-  
+title('Frekvensspektrum efter lavpas')
+xlabel('Frequency [Hz]')
+ylabel('Magnitude')
+
 xlim([0,Fnyquist])
 
 %soundsc(test,Fs)
@@ -53,7 +58,7 @@ xlim([0,Fnyquist])
 %% Combo
 
 Fpass = 1080;
-Fstop = 1000;
+Fstop = 1040;
 
 wPass = Fpass/Fnyquist;
 wStop = Fstop/Fnyquist;
@@ -67,29 +72,16 @@ soundsc(dataOut,Fs)
 
 %audiowrite('filter.wav',dataOut,Fs)
 
-%% matlab crap galore
+%% Manuel prewarping og filterorden
 wdPass = 2*pi*Fpass/Fnyquist;
 wdStop = 2*pi*Fstop/Fnyquist;
 
-waPass = (2/T)*tan(wdPass*T/2)
-waStop = (2/T)*tan(wdStop*T/2)
+waPass = (2/T)*tan(wdPass*T/2);
+waStop = (2/T)*tan(wdStop*T/2);
 
 % vs for highpass filter
 vs = waPass/waStop; 
 n = ceil(log10((power(10,0.1*50)-1)/1)/(2*log10(vs)));
-
-[Bs_norm, As_norm] = butter(n, 1,'s');
-
-[Bs1,As1] = lp2hp(Bs_norm, As_norm,waPass);
-figure(1)
-bode(Bs1,As1)
-
-[Bz,Az] = bilinear(Bs1,As1,Fs);
-
-
-freqz(Bz,Az,Fs)
-%fvtool(sos)
-
 
 %% Frequency spectrum after filtering
 
@@ -102,6 +94,9 @@ figure(3)
 plot(f3,X);
    
 xlim([0,Fnyquist])
+xlabel('Frequency [Hz]')
+ylabel('Magnitude')
+title('Frekvensspektrum efter begge filtre')
 
 %% Before/After plots of filtering in both time- and frequency domain
 
@@ -127,18 +122,18 @@ xlabel('After')
 %%
 figure(5)
 subplot(3,1,1)
-plot(f1,mag2db(abs(Xin)))
+plot(f1,abs(Xin))
 xlabel('Before')
 title('Frequency domain')
 xlim([0,Fnyquist])
 
 subplot(3,1,2)
-plot(f2,mag2db(abs(Xtest)))
+plot(f2,abs(Xtest))
 xlabel('1st Filter')
 xlim([0,Fnyquist])
 
 subplot(3,1,3)
-plot(f3,mag2db(abs(Xout)))
+plot(f3,abs(Xout))
 xlabel('After')
 xlim([0,Fnyquist])
 

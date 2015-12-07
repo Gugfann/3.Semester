@@ -14,6 +14,8 @@ X = abs(fftshift(fft(dataIn)));
 plot(f,abs(X));
    
 xlim([0,Fnyquist])
+xlabel('Frequency [Hz]')
+ylabel('Magnitude')
 
 %% Highpass Filter (Butterworth)
 
