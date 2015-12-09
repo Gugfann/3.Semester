@@ -10,8 +10,6 @@ Bil::Bil()
 Bil::Bil(string etRegNr):
 	regNr(etRegNr)
 {
-	//Kalender temp(19000101, 19000105);
-	//kalender.mergeKalender(temp);
 }
 
 string Bil::getRegNr()
@@ -37,7 +35,7 @@ void Bil::kalenderUpdate(Kalender enKalender)
 		if (!kalender.availability(enKalender.getDates()[i]))
 		{			
 			ledig = false;
-			cout << "Bilen er reserveret i noget af den valgte periode" << endl;	
+			cout << "Bilen er reserveret i den valgte periode" << endl;	
 			break;
 		}
 	}

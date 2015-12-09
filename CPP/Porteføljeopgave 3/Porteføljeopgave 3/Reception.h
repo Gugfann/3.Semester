@@ -15,7 +15,6 @@ public:
 	void modtagBil(string etRegNr);
 
 	void addBil(Bil& enBil);
-	void addStation(Station& enStation);
 
 	Reservation* findGammelReservation(Kunde enKunde);
 	Reservation* findReservation(Kunde enKunde);
@@ -26,6 +25,7 @@ public:
 	~Reception();
 
 protected:
+	void addStation(Station& enStation);
 	Kunde createKunde(string navn, string adresse, int tlf, string mail);
 	Reservation createReservation(Bil* enBil, Kunde* enKunde, int enStartDato, int enSlutDato);
 	void addBilStation(Bil& enBil);

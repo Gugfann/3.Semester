@@ -35,7 +35,7 @@ int main()
 	lobby.makeReservation("lumskpanda@jubii.dk", "Flagskibet", 19870905, 19871001);
 	lobby.makeReservation("olmkrage@gmail.com", "Flagskibet", 20010513, 20010602);
 	lobby.makeReservation("frelsthævner@arto.dk", "Flagskibet", 20010603, 20010608);
-	lobby.makeReservation("djævelskgnu@hotmail.com", "Flagskibet", 20010814, 20010908);
+	lobby.makeReservation("djævelskgnu@hotmail.com", "Flagskibet", 20011222, 20020108);
 	lobby.makeReservation("olmkrage@gmail.com", "Flagskibet", 20020217, 20020602);
 
 	lobby.hentBil("lumskpanda@jubii.dk");
